@@ -300,11 +300,11 @@ export const menu = [
       },
       {
         name: "Fri",
-        visit: 2390,
+        visit: 1390,
       },
       {
         name: "Sat",
-        visit: 3490,
+        visit: 5490,
       },
     ],
   };

@@ -17,7 +17,7 @@ const ChartBox = (props: Props) => {
         <div className='flex flex-col justify-between'>
             <div className='flex text-sm items-center'>
                 <img src={props.icon} alt="" />
-                <span className=''>{props.title}</span>
+                <span className='font-medium'>{props.title}</span>
             </div>
             <div className='text-3xl font-semibold'>{props.number}</div>
             <Link to='/' style={{color: `${props.color}`}}>view all</Link>
