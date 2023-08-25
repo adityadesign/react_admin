@@ -1,3 +1,4 @@
+import AreaChartBox from "../components/AreaChartBox";
 import BarChartBox from "../components/BarChartBox";
 import ChartBox from "../components/ChartBox"
 import PieChartBox from "../components/PieChartBox";
@@ -15,7 +16,7 @@ const Home = () => {
         <div className="p-[20px] rounded-md border-[#384256] border-2 row-span-3"><PieChartBox/></div>
         <div className="p-[20px] rounded-md border-[#384256] border-2"><ChartBox {...chartBoxRevenue}/></div>
         <div className="p-[20px] rounded-md border-[#384256] border-2"><ChartBox {...chartBoxConversion}/></div>
-        <div className="p-[20px] rounded-md border-[#384256] border-2 col-span-2 row-span-2">Box7</div>
+        <div className="p-[20px] rounded-md border-[#384256] border-2 col-span-2 row-span-2"><AreaChartBox/></div>
         <div className="p-[20px] rounded-md border-[#384256] border-2"><BarChartBox {...barChartBoxVisit}/></div>
         <div className="p-[20px] rounded-md border-[#384256] border-2"><BarChartBox {...barChartBoxRevenue}/></div>
     </div>
