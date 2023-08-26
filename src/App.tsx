@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import Menu from './components/Menu'
 import Footer from './components/Footer'
 import Login from './pages/Login'
+import Single from './components/Single'
 
 function App() {
   const Layout = () =>{
@@ -31,6 +32,7 @@ function App() {
           <Route index element={<Home/>}/>
           <Route path='users' element={<Users/>}/>
           <Route path='products' element={<Products/>}/>
+          <Route path='users/:id' element={<Single/>}/>
         </Route>
         <Route path='/login' element={<Login/>}/>
       </Routes>

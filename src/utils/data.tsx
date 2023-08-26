@@ -613,27 +613,27 @@ export const menu = [
     },
     activities: [
       {
-        text: "John Doe purchased Playstation 5 Digital Edition",
+        text: "purchased Playstation 5 Digital Edition",
         time: "3 day ago",
       },
       {
-        text: "John Doe added 3 items into their wishlist",
+        text: "added 3 items into their wishlist",
         time: "1 week ago",
       },
       {
-        text: "John Doe purchased Sony Bravia KD-32w800",
+        text: "purchased Sony Bravia KD-32w800",
         time: "2 weeks ago",
       },
       {
-        text: "John Doe reviewed a product",
+        text: "reviewed a product",
         time: "1 month ago",
       },
       {
-        text: "John Doe added 1 items into their wishlist",
+        text: "added 1 items into their wishlist",
         time: "1 month ago",
       },
       {
-        text: "John Doe reviewed a product",
+        text: "reviewed a product",
         time: "2 months ago",
       },
     ],

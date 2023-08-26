@@ -1,4 +1,6 @@
 import { topDealUsers } from "../utils/data"
+import { LazyLoadImage } from "react-lazy-load-image-component"
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const TopBox = () => {
   return (
@@ -8,7 +10,7 @@ const TopBox = () => {
             {topDealUsers.map(item => {
                 return (
                     <div key={item.id} className="grid grid-cols-4">
-                        <img className="w-12 h-12 object-cover rounded-full" src={item.img} alt="" />
+                        <LazyLoadImage src={item.img} effect= "blur" className="w-12 h-12 object-cover rounded-full"/>
                         <div className="text-sm grid col-span-2">
                             <span className="flex self-center">{item.username}</span>
                             <span className="flex self-center">{item.email}</span>

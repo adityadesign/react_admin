@@ -1,57 +1,42 @@
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef, GridToolbar, GridValueGetterParams } from '@mui/x-data-grid';
-import { userRows } from '../utils/data';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { Link } from 'react-router-dom';
 
-const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 50 },
-    {
-        field: 'img',
-        headerName: 'Avatar',
-        width: 100,
+type Props = {
+    columns: GridColDef[],
+    rows: object[],
+    choice: string
+}
+
+const DataTable = (props: Props) => {
+    const handleDelete = (id:number) =>{
+        //delete
+        console.log(id+'has been deleted');
+    }
+
+    const actionColumn: GridColDef = {
+        field: 'action',
+        headerName: 'Action',
+        width: 150,
         renderCell: (params) => {
-            return <img src={params.row.img || '/noavatar.png'} alt="" className='h-10 w-10 object-cover rounded-full'/>
+            return (
+                <div className='flex gap-1'>
+                    <Link to={`${params.row.id}`} onClick={()=>window.scrollTo({top:0})}><img src='/view.svg' alt="" /></Link>
+                    <div className='cursor-pointer' onClick={()=>handleDelete(params.row.id)}><img src="delete.svg" alt="" /></div>
+                </div>
+            )
         },
-    },
-    {
-      field: 'firstName',
-      headerName: 'First name',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'lastName',
-      headerName: 'Last name',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'email',
-      headerName: 'Email',
-      width: 200,
-      editable: true,
-    },
-    {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 160,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    },
-  ];
-
-const DataTable = () => {
+    }
   return (
     <Box sx={{ height: '100%', width: '100%' }}>
         <DataGrid
             className='bg-white p-5'
-            rows={userRows}
-            columns={columns}
+            rows={props.rows}
+            columns={[...props.columns, actionColumn]}
             initialState={{
                 pagination: {
                     paginationModel: {
-                    pageSize: 6,
+                    pageSize: 10,
                     },
                 },
             }}
