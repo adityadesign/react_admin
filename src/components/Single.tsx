@@ -9,7 +9,7 @@ const Single = () => {
     
   return (
     <div className='grid grid-cols-2 grid-rows-2 gap-5'>
-        <div className='flex gap-4 flex-col border-b-[1px] border-gray-500'>
+        <div className='flex gap-4 flex-col w-full'>
             <div className='flex items-center gap-3'>
                 <img className='w-[120px] h-[120px] object-cover rounded-xl' src={filteredData.img} alt="" />
                 <span className='text-2xl font-semibold'>{filteredData.firstName} {filteredData.lastName}</span>
@@ -21,6 +21,7 @@ const Single = () => {
                 <div>Phone: {filteredData.phone}</div>
                 <div>Status: {filteredData.verified ? 'Verified' : 'Not verified'}</div>
             </div> 
+            <hr className='border-gray-500 w-[90%] mx-auto mt-5'/>
         </div>
         <div className='flex flex-col row-span-2'>
             <span className='text-xl font-semibold text-[#ddd] mb-4'>Latest Activities</span>
@@ -36,7 +37,7 @@ const Single = () => {
                 })}
             </div>
         </div>
-        <div className=''>
+        <div className='mt-5'>
             <ResponsiveContainer width="85%" height="100%">
                 <LineChart
                     width={500}

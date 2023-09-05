@@ -1,4 +1,5 @@
 import { GridColDef } from "@mui/x-data-grid";
+import {useEffect} from 'react'
 import DataTable from "../components/DataTable"
 import { userRows } from '../utils/data';
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -72,36 +73,54 @@ const style = {
   borderRadius: '10px'
 };
 
-interface User{
+interface Form{
+  id: number|string,
+  img: string,
   lastName: string,
   firstName: string,
   email: string,
   phone: string,
   createdAt: string,
+  verified: boolean
 }
 
 const Users = () => {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const [userData, setUserData] = useState<User>({
-    lastName: "",
-    firstName: "",
-    email: "",
-    phone: "",
-    createdAt: "",
+  const [allData, setAllData] = useState<Form[]>()
+  const [formData, setFormData] = useState<Form>({
+    id: userRows.length,
+    img: '',
+    lastName: '',
+    firstName: '',
+    email: '',
+    phone: '',
+    createdAt: '',
+    verified: false,
   })
+
+  useEffect(()=>{
+    fetch('https://mocki.io/v1/cb02559e-d3e6-4ac0-ac5c-494895e20fc9')
+      .then(res => res.json())
+      .then(data => setAllData(data))
+      .then(err => console.log(err))   
+  },[])
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target
-    setUserData((prevData) => ({
+    const {name, value, type, checked} = event.target
+    const newValue = type === 'checkbox' ? checked : value;
+    setFormData((prevData)=>({
       ...prevData,
-      [name]: value,
+      [name]: newValue
     }))
   }
   const handleSubmit = (e:React.FormEvent) =>{
     e.preventDefault()
     setOpen(false)
-    console.log(userData)
+    if(allData?.length){
+      setAllData([...allData, formData])
+    }
   }
 
   return (
@@ -110,7 +129,7 @@ const Users = () => {
         <span className="text-3xl text-semibold">Users</span>
         <Button variant="contained" onClick={handleOpen} style={{fontSize: '12px', fontWeight: "bold"}}>Add New Users</Button>
       </div>
-      <DataTable choice={'users'} columns={columns} rows={userRows}/>
+      {allData && <DataTable choice={'users'} columns={columns} rows={allData}/>}
       <Modal
         open={open}
         onClose={handleClose}
@@ -122,14 +141,15 @@ const Users = () => {
             Add new user
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }} component={'form'} className="grid grid-cols-3 gap-4 text-sm" onSubmit={handleSubmit}>
-              <label className="text-sm">First name<input onChange={handleChange} name="firstName" value={userData.firstName} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="text" placeholder="firstName" required/></label>
-              <label className="text-sm">Last name<input onChange={handleChange} name="lastName" value={userData.lastName} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="text" placeholder="lastName" required/></label>
-              <label className="text-sm">Phone<input onChange={handleChange} name="phone" value={userData.phone} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="text" placeholder="phone" required/></label>
-              <label className="text-sm col-span-2">Email<input onChange={handleChange} name="email" value={userData.email} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="email" placeholder="email" required/></label>
+              <label className="text-sm">First name<input onChange={handleChange} name="firstName" value={formData.firstName} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="text" placeholder="firstName" required/></label>
+              <label className="text-sm">Last name<input onChange={handleChange} name="lastName" value={formData.lastName} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="text" placeholder="lastName" required/></label>
+              <label className="text-sm">Phone<input onChange={handleChange} name="phone" value={formData.phone} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="text" placeholder="phone" required/></label>
+              <label className="text-sm col-span-2">Email<input onChange={handleChange} name="email" value={formData.email} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="email" placeholder="email" required/></label>
               <div className="text-sm flex items-center">
                 <label htmlFor="verified">Verified:</label>
                 <input id="verified" className="m-1" type="checkbox"/>
               </div>
+              <label className="text-sm col-span-2">Image<input onChange={handleChange} name="img" value={formData.img} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="file"/></label>
               <button className="col-span-3 bg-blue-600 p-3 rounded-md text-base hover:bg-blue-500" style={{marginTop: '10px'}}>Add</button>
           </Typography>
         </Box>

@@ -358,6 +358,7 @@ export const menu = [
       email: "gobtagbes@yahoo.com",
       phone: "123 456 789",
       createdAt: "01.02.2023",
+      verified: false,
     },
     {
       id: 6,
@@ -377,6 +378,7 @@ export const menu = [
       email: "reso.bilic@gmail.com",
       phone: "123 456 789",
       createdAt: "01.02.2023",
+      verified: false,
     },
     {
       id: 8,
@@ -396,6 +398,7 @@ export const menu = [
       email: "uzozor@gmail.com",
       phone: "123 456 789",
       createdAt: "01.02.2023",
+      verified: false,
     },
     {
       id: 10,
@@ -425,6 +428,7 @@ export const menu = [
       email: "tic.harvey@hotmail.com",
       phone: "123 456 789",
       createdAt: "01.02.2023",
+      verified: false,
     },
     {
       id: 13,
@@ -434,6 +438,7 @@ export const menu = [
       email: "ceuc@gmail.com",
       phone: "123 456 789",
       createdAt: "01.02.2023",
+      verified: false,
     },
     {
       id: 14,
@@ -443,6 +448,7 @@ export const menu = [
       email: "bafuv@hotmail.com",
       phone: "123 456 789",
       createdAt: "01.02.2023",
+      verified: false,
     },
     {
       id: 15,
@@ -452,6 +458,7 @@ export const menu = [
       email: "ubi@gmail.com",
       phone: "123 456 789",
       createdAt: "01.02.2023",
+      verified: false,
     },
   ];
   
