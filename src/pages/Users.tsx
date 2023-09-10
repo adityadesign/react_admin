@@ -74,23 +74,23 @@ const style = {
 };
 
 interface Form{
-  id: number|string,
+  id: number | undefined,
   img: string,
   lastName: string,
   firstName: string,
   email: string,
   phone: string,
-  createdAt: string,
-  verified: boolean
+  createdAt: string | Date,
+  verified: boolean | undefined
 }
 
 const Users = () => {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const [allData, setAllData] = useState<Form[]>()
+  const [allData, setAllData] = useState<Form[]>(userRows)
   const [formData, setFormData] = useState<Form>({
-    id: userRows.length,
+    id: undefined,
     img: '',
     lastName: '',
     firstName: '',
@@ -100,6 +100,13 @@ const Users = () => {
     verified: false,
   })
 
+  // Get Current Date
+  const currentDate = new Date()
+  const day = String(currentDate.getDate()).padStart(2, '0')
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0')
+  const year = currentDate.getFullYear()
+  const formattedDate = `${day}.${month}.${year}`
+
   useEffect(()=>{
     fetch('https://mocki.io/v1/cb02559e-d3e6-4ac0-ac5c-494895e20fc9')
       .then(res => res.json())
@@ -108,15 +115,18 @@ const Users = () => {
   },[])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value, type, checked} = event.target
-    const newValue = type === 'checkbox' ? checked : value;
+    const {name, value, checked} = event.target
     setFormData((prevData)=>({
       ...prevData,
-      [name]: newValue
+      [name]: value,
+      id: allData.length+1,
+      createdAt: formattedDate,
+      verified: checked ? true : false
     }))
   }
   const handleSubmit = (e:React.FormEvent) =>{
     e.preventDefault()
+    console.log(formData);
     setOpen(false)
     if(allData?.length){
       setAllData([...allData, formData])
@@ -147,7 +157,7 @@ const Users = () => {
               <label className="text-sm col-span-2">Email<input onChange={handleChange} name="email" value={formData.email} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="email" placeholder="email" required/></label>
               <div className="text-sm flex items-center">
                 <label htmlFor="verified">Verified:</label>
-                <input id="verified" className="m-1" type="checkbox"/>
+                <input id="verified" className="m-1" type="checkbox" onChange={handleChange}/>
               </div>
               <label className="text-sm col-span-2">Image<input onChange={handleChange} name="img" value={formData.img} className="w-full bg-[#2a3447] border-2 border-gray-500 mt-1 rounded-sm p-1" type="file"/></label>
               <button className="col-span-3 bg-blue-600 p-3 rounded-md text-base hover:bg-blue-500" style={{marginTop: '10px'}}>Add</button>
